@@ -1,0 +1,34 @@
+{% extends "::layout.html.twig" %}
+
+{% block body %}
+
+	{% if error %}
+		<div class="alert alert-danger">{{ error.message }}</div>
+	{% endif %}
+
+	<div class="panel panel-info">
+		<div class="panel-heading">Bienvenue ! <a href="{{ path('registration') }}" class="active">Êtes-vous inscrit(e) ?</a></div>
+			<div class="panel-body">
+				<form action="{{ path('login_check') }}" method="POST" class="form-horizontal" >
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Utilisateur</label>
+						<div class="col-sm-5">
+							<input type="text" id="username" name="_username" value="{{ last_username }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Mote de passe</label>
+						<div class="col-sm-5">
+							<input type="password" id="password" name="_password" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-5">
+							<input type="submit" value="Connexion" class="btn btn-default" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

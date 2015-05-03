@@ -1,0 +1,7 @@
+apptoo_memb_member:
+    resource: "@ApptooMembMemberBundle/Resources/config/routing.yml"
+    prefix: /home
+
+user_bundle:
+    resource: "@ApptooMembUserBundle/Resources/config/routing.yml"
+    

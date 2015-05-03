@@ -1,0 +1,19 @@
+apptoo_memb_home:
+    path: /
+    defaults: { _controller: ApptooMembMemberBundle:Profile:home }
+
+apptoo_memb_edit:
+    path: /edit
+    defaults: { _controller: ApptooMembMemberBundle:Profile:edit }
+
+apptoo_memb_view:
+    path: /view/{idMember}
+    defaults: { _controller: ApptooMembMemberBundle:Profile:view }
+
+apptoo_memb_contact:
+    path: /contact
+    defaults: { _controller: ApptooMembMemberBundle:Profile:contact }
+
+apptoo_memb_delete:
+    path: /delete/{id}
+    defaults: { _controller: ApptooMembMemberBundle:Profile:deleteContact }

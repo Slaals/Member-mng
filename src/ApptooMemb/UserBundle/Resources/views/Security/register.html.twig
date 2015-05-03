@@ -1,0 +1,44 @@
+{% extends "::layout.html.twig" %}
+
+{% block body %}
+	<div class="panel panel-info">
+		<div class="panel-heading">Bienvenue ! Veuillez vous incrire !</div>
+			<div class="panel-body">
+				{{ form_start(form, {'attr': { 'class': 'form-horizontal' }}) }}
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Utilisateur</label>
+						<div class="col-sm-8">
+							{{ form_widget(form.username) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Email</label>
+						<div class="col-sm-8">
+							{{ form_widget(form.email) }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Mot de passe</label>
+						<div class="col-sm-8">
+							{{ form_widget(form.plainPassword.first) }} <br/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Mot de passe (retaper le même)</label>
+						<div class="col-sm-8">
+							{{ form_widget(form.plainPassword.second) }} <br/>
+						</div>
+					</div>
+					<hr/>
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-8">
+							<input type="submit" value="Inscription" class="btn btn-default" />
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<a href="{{ path('login') }}">Retour</a>
+						</div>
+					</div>
+				{{ form_end(form)}}
+			</div>
+		</div>
+	</div>
+{% endblock %}

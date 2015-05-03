@@ -1,0 +1,37 @@
+{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Nom</label>
+		<div class="col-sm-5">
+			{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Email</label>
+		<div class="col-sm-5">
+			{{ form_widget(form.user.email, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Adresse</label>
+		<div class="col-sm-5">
+			{{ form_widget(form.address, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Téléphone</label>
+		<div class="col-sm-5">
+			{{ form_widget(form.tel, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Site web</label>
+		<div class="col-sm-5">
+			{{ form_widget(form.site, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-5">
+			{{ form_widget(form.save, {'attr': {'class': 'btn btn-default'}, 'label': 'Enregister'}) }}
+		</div>
+	</div>
+{{ form_end(form) }}

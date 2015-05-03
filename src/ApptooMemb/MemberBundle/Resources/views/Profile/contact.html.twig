@@ -1,0 +1,27 @@
+<div class="col-md-3">
+	<div class="panel panel-info">
+		<div class="panel-heading">Contacts</div>
+		<div class="panel-body">
+			<div>
+				<form action="{{ path('apptoo_memb_contact') }}" method="POST">
+					{{ form_widget(form.contact) }}
+					{{ form_widget(form.add, {'label': 'Ajouter', 'attr': {'class': 'glyphicon glyphicon-plus btn-xs btn-success'}}) }}
+				</form>
+			</div>
+			<br/>
+			<ul class="list-group">
+				{% for contact in contacts %}
+					<li class="list-group-item list-group-item-info">
+						<a href="{{ path('apptoo_memb_view', {'idMember': contact.contact.id}) }}">
+							<i class="glyphicon glyphicon-user"></i>
+							{{ contact.contact.name }}
+						</a>
+						<a href="{{ path('apptoo_memb_delete', {'id': contact.id}) }}">
+							<i class="glyphicon glyphicon-remove" style="float: right"></i>
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>

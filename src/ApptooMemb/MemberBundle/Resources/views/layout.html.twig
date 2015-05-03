@@ -1,0 +1,23 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %} Bienvenue {{ app.user.username }} - {{ parent() }} {% endblock %}
+
+{% block body %}
+	<nav class="navbar navbar-default navbar-static-top">
+		<div class="container">
+			<ul class="nav nav-pills">
+				<li><a href="{{ path('apptoo_memb_home') }}">Accueil</a></li>
+				<li><a href="{{ path('apptoo_memb_edit') }}">Modifier profil</a>
+				<li><a href="{{ path('fos_user_security_logout') }}">Déconnecter</a>
+			</ul>
+		</div>
+	</nav>
+	<div>{% block error_log %}{% endblock %}</div>
+	{{ render(controller('ApptooMembMemberBundle:Profile:contact')) }}
+	<div id="content" class="col-md-9">
+		<div class="panel panel-info">
+			{% block content %}
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}

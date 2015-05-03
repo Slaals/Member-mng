@@ -1,0 +1,15 @@
+{% extends "ApptooMembMemberBundle::layout.html.twig" %}
+
+{% block error_log %}
+	{% for flashes in app.session.flashbag.all %}
+		{% for flash in flashes %}
+			<div class="alert alert-warning">
+				{{ flash }}
+			</div>
+		{% endfor %}
+	{% endfor %}
+{% endblock %}
+
+{% block content %}
+	{% include "ApptooMembMemberBundle:Profile:infos.html.twig" with { 'member' : member } %}
+{% endblock %}
