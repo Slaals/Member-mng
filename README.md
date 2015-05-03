@@ -1,60 +1,86 @@
 Symfony Standard Edition
 ========================
+Je vais expliquer dans ce fichiers mes choix pour concevoir cet outil, je commencerais par expliquer les bundles et le routage, ensuite je pousuivrais par une description des entités et de leurs relations, des controleurs et de leurs méthodes puis finirais par le détail des vues.
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony2
-application that you can use as the skeleton for your new applications.
+Bundle
+------------------------
+#### UserBundle
+Bundle comportant tous les outils permettant l'authentification et l'enregistrement d'un utilisateur.
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+#### MemberBundle
+Bundle comportant tous les outils permettant la gestion d'un membre, c'est à dire ses informations ainsi que ses contacts.
 
-What's inside?
---------------
+Routage
+------------------------
+#### app/config/routing.yml
+- Préfixage par */home* sur la route de MemberBundle, laisse au parefeu la possibilité de ne laisser l'accès qu'aux personnes authentifiées très simplement, sur le chemin *^/home*
+- Ajout de la ressource via *user_bundle* reconnu par FOSUserBundle, permet de localiser les routes dans la configuration de *UserBundle*.
 
-The Symfony Standard Edition is configured with the following defaults:
+#### UserBundle/config/routing.yml
+- **fos_user** : toutes les routes standards de FOSUserBundle
+- **login** : login sur la racine */*, obligation d'être authentifié pour accéder au site
+- **registration** : appelle le controlleur redéfini par *UserBundle/Controller/Registration*
 
-  * An AppBundle you can use to start coding;
+#### MemberBundle/config/routing.yml
+- **home** : représente la page d'accueil, informations du membre connecté
+- **edit** : représente la page d'édition des informations du membre connecté
+- **view** : représente la page d'un membre qu'un membre connecté consulte
+- **contact** : représente le carnet de contacts
+- **delete** : représente la page de suppression d'un contact
 
-  * Twig as the only configured template engine;
+Entités et relations
+------------------------
+#### UserBundle\Entity\User
+Etend *BaseUser* de FOSUserBundle, entité qui inclut alors tous les attributs de *BaseUser*, permet à l'authentifiation d'un utilisateur.
 
-  * Doctrine ORM/DBAL;
+#### MemberBundle\Entity\Member
+Entité qui a une réprésentation plus concrète des informations d'un membre, un utilisateur enregistré étant un membre il existe une relation **OneToOne** sur l'attribut *user*. L'attribut name de *membre* est indépendant de l'attribut *username* de *User*, un membre peut alors choisir un nom différent de son nom d'utilisateur.
 
-  * Swiftmailer;
+#### MemberBundle\Entity\Contact
+*Member* est une relation **ManyToOne** sur *Member*, *contact* est une relation **ManyToOne** sur *Member*, lie des membres entres eux pour définir leur(s) contact(s).
 
-  * Annotations enabled for everything.
+Controlleurs
+------------------------
+#### UserBundle\Controller\Registration
+Redéfinition de l'enregistrement d'utilisateur de FOSBundle, *BaseController*. Permet l'ajout d'un membre à la création d'un utilisateur (*User -> Member*)
 
-It comes pre-configured with the following bundles:
+#### UserBundle\Controller\Secutiry
+Authentification de l'utilisateur.
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+#### MemberBundle\Controller\Profile
+Toutes les actions relatives à la gestion d'un membre
+- **home** : informations du membre connecté
+- **contact** : liste de contact du membre connecté
+- **view** : informations d'un membre consulté
+- **edit** : édition des informations du membre connecté
+- **deleteContact** : suppression d'un contact
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+Vues
+------------------------
+Principe du triple héritage : _::layout.html.twig_ est étendu par _[Bundle]::layout.html.twig_ est étendu par toutes les vues de [Bundle]
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+#### ::layout.html.twig
+Comporte le header avec les inclusions css et js. Défini les bloques principaux.
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
+#### MemberBundle::layout.html.twig
+Vue principale de la gestion de membre. Incluant la barre de navigation et la liste des contacts. Défini le bloque *content* qui est le contenu.
 
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
+#### MemberBundle:Profile:contact
+Liste des contacts avec le formulaire d'ajout et les références pour supprimer un contact ou consulter son profil.
 
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
+#### MemberBundle:Pofile:index
+Home, appelle les informations d'un membre. Affiche les erreurs.
 
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
+#### MemberBundle:Profile:infos
+Formatage des informations d'un membre.
 
-  * [**AsseticBundle**][12] - Adds support for Assetic, an asset processing
-    library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
+#### MemberBundle:Profile:editInfos et MemberBundle:Profile:memberform
+Affichage du formulaire pour l'édition d'informations. Séparation du formulaire de l'édition dans l'optique de le réutiliser.
 
 All libraries and bundles included in the Symfony Standard Edition are
 released under the MIT or BSD license.
+
+
 
 Enjoy!
 
