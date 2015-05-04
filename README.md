@@ -77,6 +77,12 @@ Formatage des informations d'un membre.
 #### MemberBundle:Profile:editInfos et MemberBundle:Profile:memberform
 Affichage du formulaire pour l'édition d'informations. Séparation du formulaire de l'édition dans l'optique de le réutiliser.
 
+Remarques personnelles
+------------------------
+Créer un controlleur pour la gestion des contacts aurait été judicieux, avec les actions : add, delete, view.
+
+Il aurait été intéressant de combiner le formulaire d'inscription générique de FOSUser et le formulaire sur les informations du membre, MemberType. Ainsi un utilisateur pourrait renseigner ses informations personnelles en même temps que l'inscription.
+
 All libraries and bundles included in the Symfony Standard Edition are
 released under the MIT or BSD license.
 
